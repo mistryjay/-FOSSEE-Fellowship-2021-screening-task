@@ -1,0 +1,27 @@
+* C:\Users\mistr\eSim-Workspace\MUX\MUX.cir
+
+* EESchema Netlist Version 1.1 (Spice format) creation date: 05/11/21 19:10:50
+
+* To exclude a component from the Spice Netlist add [Spice_Netlist_Enabled] user FIELD set to: N
+* To reorder the component spice node sequence add [Spice_Node_Sequence] user FIELD and define sequence: 2,1,0
+
+* Sheet Name: /
+U6  Net-_U4-Pad4_ Net-_U5-Pad2_ Net-_U6-Pad3_ d_and		
+U7  Net-_U4-Pad5_ Net-_U4-Pad6_ Net-_U7-Pad3_ d_and		
+U8  Net-_U6-Pad3_ Net-_U7-Pad3_ Net-_U8-Pad3_ d_or		
+U5  Net-_U4-Pad6_ Net-_U5-Pad2_ d_inverter		
+U9  Net-_U8-Pad3_ Y dac_bridge_1		
+v1  D0 GND DC		
+v2  D1 GND DC		
+R1  D0 Net-_R1-Pad2_ 1k		
+R2  D1 Net-_R2-Pad2_ 1k		
+R4  Y GND 1k		
+U4  Net-_R1-Pad2_ Net-_R2-Pad2_ Net-_R3-Pad2_ Net-_U4-Pad4_ Net-_U4-Pad5_ Net-_U4-Pad6_ adc_bridge_3		
+v3  Sin GND DC		
+R3  Sin Net-_R3-Pad2_ 1k		
+U1  D0 plot_v1		
+U2  ? plot_v1		
+U3  Sin plot_v1		
+U10  Y plot_v1		
+
+.end

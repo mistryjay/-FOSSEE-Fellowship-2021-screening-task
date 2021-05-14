@@ -1,0 +1,50 @@
+* c:\users\mistr\esim-workspace\mux\mux.cir
+
+* u6  net-_u4-pad4_ net-_u5-pad2_ net-_u6-pad3_ d_and
+* u7  net-_u4-pad5_ net-_u4-pad6_ net-_u7-pad3_ d_and
+* u8  net-_u6-pad3_ net-_u7-pad3_ net-_u8-pad3_ d_or
+* u5  net-_u4-pad6_ net-_u5-pad2_ d_inverter
+* u9  net-_u8-pad3_ y dac_bridge_1
+v1 d0 gnd  dc 5
+v2 d1 gnd  dc 0
+r1  d0 net-_r1-pad2_ 1k
+r2  d1 net-_r2-pad2_ 1k
+r4  y gnd 1k
+* u4  net-_r1-pad2_ net-_r2-pad2_ net-_r3-pad2_ net-_u4-pad4_ net-_u4-pad5_ net-_u4-pad6_ adc_bridge_3
+v3 sin gnd  dc 5
+r3  sin net-_r3-pad2_ 1k
+* u1  d0 plot_v1
+* u2  ? plot_v1
+* u3  sin plot_v1
+* u10  y plot_v1
+a1 [net-_u4-pad4_ net-_u5-pad2_ ] net-_u6-pad3_ u6
+a2 [net-_u4-pad5_ net-_u4-pad6_ ] net-_u7-pad3_ u7
+a3 [net-_u6-pad3_ net-_u7-pad3_ ] net-_u8-pad3_ u8
+a4 net-_u4-pad6_ net-_u5-pad2_ u5
+a5 [net-_u8-pad3_ ] [y ] u9
+a6 [net-_r1-pad2_ net-_r2-pad2_ net-_r3-pad2_ ] [net-_u4-pad4_ net-_u4-pad5_ net-_u4-pad6_ ] u4
+* Schematic Name:                             d_and, NgSpice Name: d_and
+.model u6 d_and(rise_delay=1.0e-9 fall_delay=1.0e-9 input_load=1.0e-12 ) 
+* Schematic Name:                             d_and, NgSpice Name: d_and
+.model u7 d_and(rise_delay=1.0e-9 fall_delay=1.0e-9 input_load=1.0e-12 ) 
+* Schematic Name:                             d_or, NgSpice Name: d_or
+.model u8 d_or(rise_delay=1.0e-9 fall_delay=1.0e-9 input_load=1.0e-12 ) 
+* Schematic Name:                             d_inverter, NgSpice Name: d_inverter
+.model u5 d_inverter(rise_delay=1.0e-9 fall_delay=1.0e-9 input_load=1.0e-12 ) 
+* Schematic Name:                             dac_bridge_1, NgSpice Name: dac_bridge
+.model u9 dac_bridge(out_low=0.0 out_high=5.0 out_undef=0.5 input_load=1.0e-12 t_rise=1.0e-9 t_fall=1.0e-9 ) 
+* Schematic Name:                             adc_bridge_3, NgSpice Name: adc_bridge
+.model u4 adc_bridge(in_low=1.0 in_high=2.0 rise_delay=1.0e-9 fall_delay=1.0e-9 ) 
+.tran 2e-00 20e-00 0e-00
+
+* Control Statements 
+.control
+run
+print allv > plot_data_v.txt
+print alli > plot_data_i.txt
+plot v(d0)
+plot v(?)
+plot v(sin)
+plot v(y)
+.endc
+.end
